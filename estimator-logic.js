@@ -20,10 +20,11 @@ function d3_go(){
         //document.getElementById("probability_60_text").innerHTML = "60% confidence = " +Math.round(pct(jStat.lognormal.inv(.6, MEAN, STD))*ESTIMATE) + " hours";
         //document.getElementById("probability_70_text").innerHTML = "80% confidence = " +Math.round(pct(jStat.lognormal.inv(.8, MEAN, STD))*ESTIMATE) + " hours";
         Velocity = document.getElementById("txt_velocity").value; 
-        Weeks = Math.round(pct(jStat.lognormal.inv(.9, MEAN, STD))*ESTIMATE)/Velocity ;
+        Weeks = Math.round(pct(jStat.lognormal.inv(.9, MEAN, STD))*ESTIMATE/Velocity);
         EstimateCertanityWeeks = Math.trunc(Weeks);
         EstimateCertanityDays = Weeks - Math.floor(Weeks);
-                        
+       
+        //document.getElementById("probability_70_text").innerHTML = STD;                
         document.getElementById("probability_50_text").innerHTML = EstimateCertanityWeeks;
         document.getElementById("probability_60_text").innerHTML = Math.round(EstimateCertanityDays * 5);
         
@@ -208,6 +209,7 @@ function d3_go(){
             d0 = dataset[i - 1],
             d1 = dataset[i],
             d = x0 - d0.x > d1.x - x0 ? d1 : d0;
+           
 
         focus.attr("transform", "translate(" + xScale(d.x) + "," + yScale(d.y) + ")");
         focus.select('line')
@@ -222,6 +224,7 @@ function d3_go(){
             .attr("d", area);
         // Update center display
         // svg.select("#pdisplay").text('p(X \u2264 x) = ' + pct(jStat.lognormal.cdf(d.x, mean, std)));
+        
         svg.select("#pdisplay").text('p(X \u2264 '+ Math.round(d.x*Weeks) + ' Weeks) = ' + pct(jStat.lognormal.cdf(d.x, mean, std)));
 
 
@@ -268,8 +271,8 @@ stdSlider.querySelector('input').addEventListener('input', (event)=>{
     Confidence = event.target.value;
 
     
-    STD =  (100 - Confidence) * 1.28 * (1/.9) / 100;
-                          
+    STD =  ((100 - Confidence) * 1.28 * (1/.9) / 100).toFixed(2);
+                        
 
     d3_go()
 });
