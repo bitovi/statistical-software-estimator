@@ -30,7 +30,7 @@ function d3_go(){
         document.getElementById("probability_50_text").innerHTML = EstimateCertanityWeeks;
         document.getElementById("probability_60_text").innerHTML = Math.round(EstimateCertanityDays * 5);
         
-        document.getElementById("probability_70_text").innerHTML = Weeks;                    
+        //document.getElementById("probability_70_text").innerHTML = Weeks;                    
       
     }
 
