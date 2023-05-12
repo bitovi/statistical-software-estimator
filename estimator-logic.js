@@ -1,7 +1,7 @@
 var ESTIMATE = 10;
 var MEAN = 0;
 var STD = .25;
-var Confidence = 10;
+var Confidence = 50;
 var Velocity = 1;
 var LikelyEstimate = 0;
 var EstimateCertanityWeeks = 0;
@@ -22,13 +22,13 @@ function d3_go(){
         Velocity = document.getElementById("txt_velocity").value; 
        
         Weeks = (ESTIMATE/Velocity).toFixed(2);
-        LikelyEstimate = pct(jStat.lognormal.inv(.9, MEAN, STD))*Weeks;
+        LikelyEstimate = pct(1/(jStat.lognormal.inv(Confidence/100, MEAN, STD)))*Weeks;
         EstimateCertanityWeeks = Math.trunc(LikelyEstimate);
         EstimateCertanityDays = LikelyEstimate - Math.floor(LikelyEstimate);
         
                
         document.getElementById("probability_50_text").innerHTML = EstimateCertanityWeeks;
-        document.getElementById("probability_60_text").innerHTML = Math.round(EstimateCertanityDays * 5);
+        document.getElementById("probability_60_text").innerHTML = (EstimateCertanityDays * 5).toFixed(1);
         
         //document.getElementById("probability_70_text").innerHTML = Weeks;                    
       
@@ -91,10 +91,10 @@ function d3_go(){
         });
 
 
-    var xlabels = [0*Weeks, .5*Weeks, 1*Weeks,
-        1.5*Weeks, 2*Weeks, 2.5*Weeks, 3*Weeks
+    var xlabels = [0*EstimateCertanityWeeks, .5*EstimateCertanityWeeks, 1*EstimateCertanityWeeks,
+        1.5*EstimateCertanityWeeks, 2*EstimateCertanityWeeks, 2.5*EstimateCertanityWeeks, 3*EstimateCertanityWeeks
     ];
-   
+       
     /////// Define Axis //////////////////////////////
     var xAxis = d3.axisBottom()
         .scale(xScale)
@@ -226,8 +226,8 @@ function d3_go(){
             .attr("d", area);
         // Update center display
         // svg.select("#pdisplay").text('p(X \u2264 x) = ' + pct(jStat.lognormal.cdf(d.x, mean, std)));
-       
-        svg.select("#pdisplay").text('p(X \u2264 '+ Math.round(d.x*Weeks) + ' Weeks) = ' + pct(jStat.lognormal.cdf(d.x, mean, std)));
+              
+        svg.select("#pdisplay").text('p(X \u2264 '+ Math.round(d.x*EstimateCertanityWeeks) + ' Weeks) = ' + pct(jStat.lognormal.cdf(d.x, mean, std)));
 
 
     }
@@ -237,6 +237,7 @@ function d3_go(){
         var data = [];
 
         x_position = lower_bound;
+        
         for (i = 0; i < n; i++) {
             data.push({
                 "y": jStat.lognormal.pdf( x_position, mean, std ),
@@ -244,7 +245,8 @@ function d3_go(){
                 "x": x_position
             })
             x_position += interval
-        }
+            
+          }
         return (data);
     }
     updateProbabilities()
