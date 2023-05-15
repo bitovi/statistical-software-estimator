@@ -123,8 +123,11 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 				bottom: 50,
 				left: 50
 		};
+		// Lets not hard-code the chart div eventually
+		const baseWidth = document.getElementById("chartdiv").clientWidth;
 
-		var width = 768 - margin.left - margin.right,
+
+		var width = baseWidth - margin.left - margin.right,
 				height = 500 - margin.top - margin.bottom;
 
 		var svg = d3.select("#chartdiv");

@@ -54,7 +54,7 @@ export class StatisticalEstimator extends StacheElement {
 		<details class='bg-sky-100 p-3 mt-6'>
 			<summary>Configure estimation units</summary>
 
-			<div class="grid gap-3 p-3" style="grid-template-columns: max-content max-content 1fr;">
+			<div class="grid gap-3 p-3 configure-estimation">
 				<label class="font-bold">Estimate Unit:</label>
 				<div><select value:bind="this.estimateUnit"
 					id="estimateUnit"
@@ -63,9 +63,9 @@ export class StatisticalEstimator extends StacheElement {
 					<option value="weeks">Weeks</option>
 					<option value="story points">Story Points</option>
 				</select></div>
-				<div><p>
+				<p class='help-text'>
 					<code class="font-mono">Estimate Unit</code> is the unit your team uses to provide <code class="font-mono">raw estimates</code>.
-				</p></div>
+				</p>
 
 
 				{{# eq(this.estimateUnit, "story points")}}
@@ -75,14 +75,14 @@ export class StatisticalEstimator extends StacheElement {
 					<div><input id="sprintWorkingDays"
 					type="number" valueAsNumber:bind="this.sprintWorkingDays" class="${formInput} w-16" /></div>
 
-					<p>Specify how many working days are in your team's sprints. For example, if you have
+					<p  class='help-text'>Specify how many working days are in your team's sprints. For example, if you have
 					a two week sprint, you should enter 10.</p>
 
 					<label for="velocity"  class="font-bold">Sprint velocity in story points:</label>
 					<div><input id="velocity"
 						type="number" valueAsNumber:bind="this.velocity" class="${formInput} w-16" /></div>
 
-					<p>Specify how many sprints your team completes a sprint.</p>
+					<p class='help-text'>Specify how many sprints your team completes a sprint.</p>
 
 				{{/ eq }}
 
@@ -95,7 +95,7 @@ export class StatisticalEstimator extends StacheElement {
 							<option value="confidence">Confidence</option>
 						</select>
 				</div>
-				<p><code class="font-mono">Spread Unit</code> is the unit your team uses to describe how
+				<p class='help-text'><code class="font-mono">Spread Unit</code> is the unit your team uses to describe how
 				close or far away the results might be from the <code class="font-mono">raw estimate</code>.
 				</p>
 
@@ -111,7 +111,7 @@ export class StatisticalEstimator extends StacheElement {
 							{{/ eq}}
 						</select>
 				</div>
-				<p><code class="font-mono">Output Unit</code> is the unit you want adjusted times provided in.
+				<p class='help-text'><code class="font-mono">Output Unit</code> is the unit you want adjusted times provided in.
 				</p>
 
 			</div>
@@ -236,6 +236,10 @@ export class StatisticalEstimator extends StacheElement {
 			graph(value);
 		})
 		graph(this.dataForGraph);
+
+		this.listenTo(window,"resize", ()=>{
+			graph(this.dataForGraph);
+		})
 	}
 }
 

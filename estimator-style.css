@@ -52,7 +52,6 @@
 }
 
 #chartdiv {
-	width:768px;
 	height: 500px;
 }
 
@@ -64,4 +63,19 @@
 
 hr.dashed {
     border-top: 3px dashed #bbb;
+}
+
+
+.configure-estimation {
+	grid-template-columns: max-content max-content 1fr;
+}
+/** mobile adjustments **/
+
+@media screen and (max-width: 600px) {
+  .help-text {
+		display:  none;
+	}
+	.configure-estimation {
+		grid-template-columns: max-content max-content;
+	}
 }
