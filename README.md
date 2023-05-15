@@ -2,7 +2,10 @@
 
 This tool provides more accurate software estimates. For the theory behind it, read [Why software projects take longer than you think: a statistical model](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html). 
 
+![Statistical_Software_Estimator](https://github.com/bitovi/statistical-software-estimator/assets/78602/81013c78-20a7-48c4-a266-e6a09eeb79ed)
+
 Instead of modeling estimates with one value (the estimate), this tool lets you model estimates with probabilities, specifically a [log normal distribution](https://en.wikipedia.org/wiki/Log-normal_distribution) that more accurately models how software development times actually turn out.
+
 
 
 
