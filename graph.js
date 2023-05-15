@@ -124,7 +124,7 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 				left: 50
 		};
 		// Lets not hard-code the chart div eventually
-		const baseWidth = document.getElementById("chartdiv").clientWidth;
+		const baseWidth = Math.min( document.getElementById("chartdiv").clientWidth, window.innerWidth - 20);
 
 
 		var width = baseWidth - margin.left - margin.right,
