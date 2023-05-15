@@ -157,8 +157,10 @@ export class StatisticalEstimator extends StacheElement {
 			{{/ eq }}
 
 
-			<p class='pt-3'>On average, the work will complete in {{this.prettyAdjustedMean}}.</p>
-			<p class='pb-3'>You are 90% likely to achieve your goal in {{this.prettyAdjustedEstimate}}.</p>
+			<p class='pt-3'>On average, work will complete in {{this.prettyAdjustedMean}}.</p>
+			<p class=''>It's 70% likely work will complete in {{this.prettyAdjustedEstimate70}}.</p>
+			<p class=''>It's 80% likely work will complete in {{this.prettyAdjustedEstimate80}}.</p>
+			<p class='pb-3'>It's 90% likely work will complete in {{this.prettyAdjustedEstimate}}.</p>
 
 			<div id="chartdiv"></div>
 	`;
@@ -207,6 +209,16 @@ export class StatisticalEstimator extends StacheElement {
 		},
 		get prettyAdjustedEstimate(){
 			return toPrettyValue({value: this.adjustedEstimate, outputUnit: this.outputUnit})
+		},
+		get prettyAdjustedEstimate70(){
+			return toPrettyValue({
+				value: this.estimateInOutput * jStat.lognormal.inv(70 / 100, 0, this.standardDeviations),
+				outputUnit: this.outputUnit})
+		},
+		get prettyAdjustedEstimate80(){
+			return toPrettyValue({
+				value: this.estimateInOutput * jStat.lognormal.inv(80 / 100, 0, this.standardDeviations),
+				outputUnit: this.outputUnit})
 		},
 		get prettyAdjustedMean(){
 			return toPrettyValue({value: this.meanEstimate, outputUnit: this.outputUnit})
