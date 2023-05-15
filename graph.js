@@ -17,7 +17,7 @@ function create_data(interval, upper_bound, lower_bound, mean, std) {
 
 		for (let i = 0; i < n; i++) {
 				data.push({
-						"y": jStat.lognormal.pdf( x_position, mean, std ),
+						"y": jStat.lognormal.cdf( x_position, mean, std ),
 						// "y": jStat.normal.pdf(x_position, mean, std),
 						"x": x_position
 				})
@@ -65,7 +65,7 @@ const pct = d3.format('02.2f');
 function updateHelperText({svg, d, estimate, outputUnit, mean, std}){
 	// Update center display
 	// svg.select("#pdisplay").text('p(X \u2264 x) = ' + pct(jStat.lognormal.cdf(d.x, mean, std)));
-	svg.select("#pdisplay").text('p(X \u2264 '+ Math.round(d.x*estimate) + ' '+outputUnit+') = ' + pct(jStat.lognormal.cdf(d.x, mean, std)));
+	svg.select("#pdisplay").text('p(X \u2264 '+ Math.round(d.x*estimate) + ' '+outputUnit+') = ' + Math.round(jStat.lognormal.cdf(d.x, mean, std) * 100)+"%"  );
 }
 
 const bisectX = d3.bisector(function(d) {
@@ -155,7 +155,7 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 								return (d.y);
 						}),
 						d3.max(dataset, function(d) {
-								return d.y;
+								return 1;
 						})
 				])
 				.range([height, 0]);
@@ -183,7 +183,9 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 
 		var yAxis = d3.axisLeft()
 				.scale(yScale)
-				.ticks(8);
+				.ticks(8).tickFormat(function(d, i) {
+						return Math.round(d*100)
+				});
 
 
 
@@ -219,7 +221,7 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 
 		svg.append("text")
 				.attr("id", "pdisplay")
-				.attr("x", 520)
+				.attr("x", 150)
 				.attr("y", 50)
 				.style("text-anchor", "middle");
 
@@ -283,8 +285,8 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 				.attr("transform", "translate(0," + height + ")")
 				.call(xAxis)
 				.append("text")
-				.attr("y", 16)
-				.attr("x", 30)
+				.attr("y", 25)
+				.attr("x", 450)
 				.attr("dy", "0.71em")
 				.attr("fill", "#000")
 				.text("Weeks");;
@@ -295,11 +297,11 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 				.call(yAxis)
 				.append("text")
 				.attr("transform", "rotate(-90)")
-				.attr("y", 6)
-				.attr("x", -10)
+				.attr("y", -45)
+				.attr("x", -150)
 				.attr("dy", "0.71em")
 				.attr("fill", "#000")
-				.text("Probability Density");;
+				.text("Likelyhood of completion");;
 
 
 		function mousemove() {
