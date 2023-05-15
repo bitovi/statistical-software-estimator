@@ -1,6 +1,9 @@
 # Statistical Software Estimator
 
-- [Use](#Use)
+- [Configuration](#configuration)
+- [Use](#use)
+- [Contributing](#contributing)
+- [Thanks](#thanks)
 
 The [Statistical Software Estimator](https://bitovi.github.io/statistical-software-estimator/) provides more accurate software estimates. For the theory behind it, read [Why software projects take longer than you think: a statistical model](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html). 
 
@@ -30,3 +33,22 @@ __NOTICE__ as you change the settings from the default, these settings are saved
 
 ## Use 
 
+Once you've configured your settings.  It's time to start estimating.  Ask your team for an estimate and how confident they are about their estimate.  Enter the values and see the result.
+
+![Software Estimator Screen Shot](https://github.com/bitovi/statistical-software-estimator/assets/78602/9d40886a-eb4f-4efa-9b4b-99d37cbe087f)
+
+You can move your mouse over the graph to see the probability of achieving your goal for different lengths of time.  The following shows there's an 80% chance of achieving the goal in 18 days.
+
+![image](https://github.com/bitovi/statistical-software-estimator/assets/78602/7bf84cdc-3a61-4b14-b41c-d62f0b0d5915)
+
+
+## Contributing
+
+This is an MIT licensed project. Please fork and improve. 
+
+If you have suggestions for improvements, please create an issue in this repository.
+
+
+## Thanks
+
+A big shout out to [Jeremiah Sheehy](https://www.linkedin.com/in/jeremiah-sheehy-ba865a18b/) who built the first version of this tool and donated it to us so we could improve it.
