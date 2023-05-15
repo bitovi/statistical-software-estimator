@@ -1,13 +1,12 @@
 # Statistical Software Estimator
 
+- [Use](#Use)
+
 The [Statistical Software Estimator](https://bitovi.github.io/statistical-software-estimator/) provides more accurate software estimates. For the theory behind it, read [Why software projects take longer than you think: a statistical model](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html). 
 
-[![Software Estimator Screen Shot](https://github.com/bitovi/statistical-software-estimator/assets/78602/5f656467-8808-496a-96ff-12c69677fee2)](https://bitovi.github.io/statistical-software-estimator/)
+[![Software Estimator Screen Shot](https://github.com/bitovi/statistical-software-estimator/assets/78602/9d40886a-eb4f-4efa-9b4b-99d37cbe087f)](https://bitovi.github.io/statistical-software-estimator/)
 
 Instead of modeling estimates with one value (the estimate), this tool lets you model estimates with probabilities, specifically a [log normal distribution](https://en.wikipedia.org/wiki/Log-normal_distribution) that more accurately models how software development times actually turn out.
-
-
-
 
 
 ## Need help estimating or have questions?
@@ -19,4 +18,15 @@ This project is supported by [Bitovi, an agile project management consultancy](h
 
 Or, you can hire us for training, consulting, or development. [Set up a free consultation.](https://www.bitovi.com/services/agile-project-management-consulting)
 
-## Use
+## Configuration
+
+If this is your first time using it, you will want to expand the configure estimation units section and make sure its settings matches your team's needs.
+
+![image](https://github.com/bitovi/statistical-software-estimator/assets/78602/dd972356-6d57-42d6-9827-a324ecf4d4bb)
+
+__NOTICE__ as you change the settings from the default, these settings are saved in the URL. This url is convient to bookmark so you don't have to change the settings each time you use it.
+
+![image](https://github.com/bitovi/statistical-software-estimator/assets/78602/aa30e3b1-69c7-4739-900f-f685578706dd)
+
+## Use 
+
