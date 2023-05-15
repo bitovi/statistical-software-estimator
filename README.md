@@ -37,9 +37,11 @@ Once you've configured your settings.  It's time to start estimating.  Ask your 
 
 ![Software Estimator Screen Shot](https://github.com/bitovi/statistical-software-estimator/assets/78602/9d40886a-eb4f-4efa-9b4b-99d37cbe087f)
 
-You can move your mouse over the graph to see the probability of achieving your goal for different lengths of time.  The following shows there's an 80% chance of achieving the goal in 18 days.
+You can move your mouse over the graph to see the probability of achieving your goal for different lengths of time.  The following shows there's an 80% chance of achieving the goal in 18 days:
 
-![image](https://github.com/bitovi/statistical-software-estimator/assets/78602/7bf84cdc-3a61-4b14-b41c-d62f0b0d5915)
+![Showing likelyhood of achieving goals](https://github.com/bitovi/statistical-software-estimator/assets/78602/c928dbe3-1139-4268-a6d0-f12cee661023)
+
+
 
 
 ## Contributing
