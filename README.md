@@ -2,9 +2,10 @@
 
 The [Statistical Software Estimator](https://bitovi.github.io/statistical-software-estimator/) provides more accurate software estimates. For the theory behind it, read [Why software projects take longer than you think: a statistical model](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html). 
 
-[![Software Estimator App](https://github.com/bitovi/statistical-software-estimator/assets/78602/2b5154c5-2886-45e0-bd9e-f2b1f04d8c7a)](https://bitovi.github.io/statistical-software-estimator/)
+[![Software Estimator Screen Shot](https://github.com/bitovi/statistical-software-estimator/assets/78602/5f656467-8808-496a-96ff-12c69677fee2)](https://bitovi.github.io/statistical-software-estimator/)
 
 Instead of modeling estimates with one value (the estimate), this tool lets you model estimates with probabilities, specifically a [log normal distribution](https://en.wikipedia.org/wiki/Log-normal_distribution) that more accurately models how software development times actually turn out.
+
 
 
 
