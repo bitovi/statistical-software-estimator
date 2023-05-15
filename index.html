@@ -4,59 +4,73 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Project Estimates with Probability</title>
+    <title>Statistical Software Estimator</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jstat/latest/jstat.min.js"></script>
     <!-- <link rel="stylesheet" type="text/css" href="main.css"> -->
-    <link rel="stylesheet" type="text/css" href="estimator-style.css"> 
+    <link rel="stylesheet" type="text/css" href="estimator-style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
-
+		<script src="https://cdn.tailwindcss.com"></script>
     <!-- Attribution -->
     <!-- Sliders - https://codepen.io/nosurprisethere/pen/KJxwQz -->
     <!-- Interactive Normal distribution https://bl.ocks.org/ctufts/a90019910166d8378c6462dfd2f6f3ec -->
 </head>
 
 <body>
-    <h2>Statistical Software Estimator</h2>
-    <div class="range-slider">
-        <div id="estimate_input">
-            <p>
-                <b>Raw estimate in story points</b>
-            </p>
-            <input class="range-slider__range" type="range" value="10" min="1" max="300" step="1">
-            <span class="range-slider__value">10</span>
-        </div>
-        
-        <div id="std_input">
-            <p>
-                <b>Estimate Confidence %</b>
-            </p>
-            <input class="range-slider__range" type="range" value="50" min="1" max="100" step="1">
-            <span class="range-slider__value">50</span>
-        </div>
-             
-        <div id="velocity_input">
-            <p>
-                <b>Our velocity is</b>
-                <input id="txt_velocity" type="text" size="2" value="10" onchange="d3_go()">
-                <b> story points per working week</b>
-            </p>
-            
-        </div>
-      
-        <div>
-            <p><b>You are most likely to complete the project in </b>&nbsp;&nbsp;<label id="probability_50_text">aa</label>&nbsp;&nbsp;&nbsp;<b>working weeks and</b>&nbsp;&nbsp;<label id="probability_60_text">aa</label>&nbsp;&nbsp;<b>days</b></p>            
-           <!--<p id="probability_70_text">cc</p>-->
-        </div>
-    </div>
+<!--
+<div  class="bg-slate-300">
+	<nav class="container mx-auto py-2 max-w-screen-md">
+		<div class="flex">
+			<ul class="flex gap-3 flex-grow">
+				<li>
+					<a href="https://www.bitovi.com/services/agile-project-management-consulting"
+						class="hover:text-sky-700">Statistical Estimator</a>
+				</li>
+				<li>
+					<a href="https://jira-auto-scheduler.bitovi-jira.com/"
+						class="hover:text-sky-700 underline text-blue-500">Jira AutoScheduler</a>
+				</li>
+				<li>
+					<a href="https://bitovi-jira-timeline-report-main.bitovi-jira.com/"
+						class="hover:text-sky-700 underline text-blue-500">Timeline Report</a>
+				</li>
+			</ul>
+			<div>
+				<a href="https://www.bitovi.com/services/agile-project-management-consulting"
+					class="hover:text-sky-700 underline text-blue-500">Bitovi</a>
+			</div>
+		</div>
 
-    <br>
-    <hr class="dashed">
-    <div id="chartdiv"></div>
+	</nav>
+</div>
+-->
+<div  class="container mx-auto max-w-screen-md">
 
-    <script src="estimator-logic.js"> </script>
 
-    
+
+    <h1 class="text-2xl/8 font-bold pt-8 pb-4">Statistical Software Estimator</h1>
+
+		<p>This tool provides more accurate software estimates.
+				For the theory behind it, read
+				<a class="hover:text-sky-700 underline text-blue-500"
+					href="https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html">Why software projects take longer than you think: a statistical model</a>.
+				A big shout out to
+				<a href="https://www.linkedin.com/in/jeremiah-sheehy-ba865a18b/"
+					 class="hover:text-sky-700 underline text-blue-500"
+				>Jeremiah Sheehy</a> who built the first version of this tool and donated
+				it to us so we could improve it. Find a copy of the source at
+				<a href="https://github.com/bitovi/statistical-software-estimator"
+					 class="hover:text-sky-700 underline text-blue-500"
+				>Github</a>.
+		</p>
+		<statistical-estimator class='block'></statistical-estimator>
+
+
+
+
+</div>
+<script type="module" src="./estimator.js">
+			</script>
 </body>
 
 </html>
