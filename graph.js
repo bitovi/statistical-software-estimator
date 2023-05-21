@@ -89,7 +89,8 @@ function getClosestDataPointToEvent({element, dataset, xScale}){
 
 export default function({mean = 0, std = 1, estimate, outputUnit}){
 
-
+		const capitalizedOutputUnit = outputUnit[0].toUpperCase()+
+			outputUnit.substr(1);
 
 		/*
 		function updateProbabilities()
@@ -289,7 +290,7 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 				.attr("x", 450)
 				.attr("dy", "0.71em")
 				.attr("fill", "#000")
-				.text("Weeks");;
+				.text(capitalizedOutputUnit);
 
 
 		svg.append("g")
