@@ -1,6 +1,7 @@
 import { StacheElement, type, ObservableObject } from "//unpkg.com/can@6/core.mjs";
 import graph from "./graph.js";
 import {saveJSONToUrl} from "./shared/state-storage.js";
+import {getEndDateFromUTCStartDateAndBusinessDays} from "./shared/dateUtils.js";
 
 const formInput = "shadow border rounded py-1 px-1 text-gray-700  focus:outline-none focus:shadow-outline"
 
@@ -47,6 +48,10 @@ function toPrettyValue({value, outputUnit}){
 
 const stringParse = {parse: x => ""+x, stringify: x => ""+x};
 const numberParse = {parse: x => +x, stringify: x => ""+x};
+const dateParse = {parse: x => x && new Date(x), stringify: x => x && x.toISOString()};
+
+const dateFormatter = new Intl.DateTimeFormat('en-US',{timeZone: "UTC"})
+
 
 export class StatisticalEstimator extends StacheElement {
 	static view = `
@@ -114,6 +119,15 @@ export class StatisticalEstimator extends StacheElement {
 				<p class='help-text'><code class="font-mono">Output Unit</code> is the unit you want adjusted times provided in.
 				</p>
 
+				<label for="startDate" class="font-bold">Start Date:</label>
+				<div>
+					<input type="date"
+							valueAsDate:bind="this.startDate"/>
+				</div>
+				<p class='help-text'>Setting <code class="font-mono">Start Date</code> lets you see
+				the estimated completion date of your work.
+				</p>
+
 			</div>
 
 		</details>
@@ -157,10 +171,22 @@ export class StatisticalEstimator extends StacheElement {
 			{{/ eq }}
 
 
-			<p class='pt-3'>On average, work will complete in {{this.prettyAdjustedMean}}.</p>
-			<p class=''>It's 70% likely work will complete in {{this.prettyAdjustedEstimate70}}.</p>
-			<p class=''>It's 80% likely work will complete in {{this.prettyAdjustedEstimate80}}.</p>
-			<p class='pb-3'>It's 90% likely work will complete in {{this.prettyAdjustedEstimate}}.</p>
+			<p class='pt-3'>On average, work will complete in {{this.prettyAdjustedMean}}{{# if(this.startDate) }}
+				on {{this.prettyEndDateOfMeanEstimate}}.
+				{{ else }}.{{/ if}}
+			</p>
+			<p class=''>It's 70% likely work will complete in {{this.prettyAdjustedEstimate70}}{{# if(this.startDate) }}
+				on {{this.prettyEndDateOfAdjustedEstimate70}}.
+				{{ else }}.{{/ if}}
+			</p>
+			<p class=''>It's 80% likely work will complete in {{this.prettyAdjustedEstimate80}}{{# if(this.startDate) }}
+				on {{this.prettyEndDateOfAdjustedEstimate80}}.
+				{{ else }}.{{/ if}}
+			</p>
+			<p class='pb-3'>It's 90% likely work will complete in {{this.prettyAdjustedEstimate90}}{{# if(this.startDate) }}
+				on {{this.prettyEndDateOfAdjustedEstimate90}}.
+				{{ else }}.{{/ if}}
+			</p>
 
 			<div id="chartdiv"></div>
 	`;
@@ -171,6 +197,7 @@ export class StatisticalEstimator extends StacheElement {
 		outputUnit: saveJSONToUrl("outputUnit", "days", String, stringParse),
 		velocity: saveJSONToUrl("velocity", 20, type.convert(Number), numberParse),
 		sprintWorkingDays: saveJSONToUrl("sprintWorkingDays", 10, type.convert(Number), numberParse),
+		startDate: saveJSONToUrl("startDate", null, type.maybeConvert(Date), dateParse),
 
 		estimate: {default: 10, type: type.convert(Number)},
 
@@ -201,24 +228,53 @@ export class StatisticalEstimator extends StacheElement {
 				estimate: this.estimate, pointsPerDay
 			})
 		},
+		get estimateInDays(){
+			const pointsPerDay = this.velocity / this.sprintWorkingDays;
+			return estimateToOutputConverter[this.estimateUnit]["days"]({
+				estimate: this.estimate, pointsPerDay
+			})
+		},
 		get adjustedEstimate() {
 			return this.estimateInOutput * jStat.lognormal.inv(this.distributionConfidence / 100, 0, this.standardDeviations)
 		},
 		get meanEstimate(){
 			return this.estimateInOutput * jStat.lognormal.mean(0, this.standardDeviations)
 		},
-		get prettyAdjustedEstimate(){
+		get prettyEndDateOfMeanEstimate(){
+			if(this.startDate) {
+				const days =
+					Math.round( this.estimateInDays * jStat.lognormal.mean(0, this.standardDeviations) );
+				const endDate =  getEndDateFromUTCStartDateAndBusinessDays(this.startDate, days);
+				return dateFormatter.format( endDate );
+			}
+		},
+		get prettyAdjustedEstimate90(){
 			return toPrettyValue({value: this.adjustedEstimate, outputUnit: this.outputUnit})
+		},
+		get prettyEndDateOfAdjustedEstimate90() {
+			if(this.startDate) {
+				return dateFormatter.format( this.calculateEndDateOfAdjustedEstimate(this.startDate, 90) )
+			}
 		},
 		get prettyAdjustedEstimate70(){
 			return toPrettyValue({
 				value: this.estimateInOutput * jStat.lognormal.inv(70 / 100, 0, this.standardDeviations),
 				outputUnit: this.outputUnit})
 		},
+		get prettyEndDateOfAdjustedEstimate70() {
+			if(this.startDate) {
+				return dateFormatter.format( this.calculateEndDateOfAdjustedEstimate(this.startDate, 70) )
+			}
+		},
 		get prettyAdjustedEstimate80(){
 			return toPrettyValue({
 				value: this.estimateInOutput * jStat.lognormal.inv(80 / 100, 0, this.standardDeviations),
 				outputUnit: this.outputUnit})
+		},
+		get prettyEndDateOfAdjustedEstimate80() {
+			if(this.startDate) {
+				return dateFormatter.format( this.calculateEndDateOfAdjustedEstimate(this.startDate, 80) )
+			}
 		},
 		get prettyAdjustedMean(){
 			return toPrettyValue({value: this.meanEstimate, outputUnit: this.outputUnit})
@@ -231,6 +287,12 @@ export class StatisticalEstimator extends StacheElement {
 			}
 		}
 	};
+
+	calculateEndDateOfAdjustedEstimate(startDate, confidenceStandard){
+		const days =
+			Math.round( this.estimateInDays * jStat.lognormal.inv(confidenceStandard / 100, 0, this.standardDeviations) );
+		return getEndDateFromUTCStartDateAndBusinessDays(startDate, days);
+	}
 
 	toConfidence(stds){
 		const slope = (this.highConfidence - this.lowConfidence) / (this.highConfidenceStds - this.lowConfidenceStds);
