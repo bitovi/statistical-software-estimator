@@ -87,8 +87,8 @@ export function getEndDateFromUTCStartDateAndBusinessDays(startDate, businessDay
 	const currentDate = new Date(startDate.getTime());
 	const startingDate = startDate.getUTCDate();
 
-	let addedDays = 0;
-	while(addedDays < businessDays) {
+	let addedDays = 1;
+	while(addedDays < businessDays || (currentDate.getUTCDay() === 0 || currentDate.getUTCDay() === 6) ) {
 		if (currentDate.getUTCDay() !== 0 && currentDate.getUTCDay() !== 6) {
 			addedDays++;
 		}
