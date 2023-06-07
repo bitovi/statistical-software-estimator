@@ -89,41 +89,13 @@ export function getEndDateFromUTCStartDateAndBusinessDays(startDate, businessDay
 
 	let addedDays = 0;
 	while(addedDays < businessDays) {
-		currentDate.setUTCDate( currentDate.getUTCDate() + 1 );
 		if (currentDate.getUTCDay() !== 0 && currentDate.getUTCDay() !== 6) {
 			addedDays++;
 		}
+		currentDate.setUTCDate( currentDate.getUTCDate() + 1 );
 	}
 
 	return currentDate;
-
-
-	const startDay = curDate.getUTCDay();
-
-	// move to Monday ...
-	if(startDay === 0 ) { // sunday
-		curDate.setUTCDate(curDate.getUTCDate() + 1 );
-	} else if(startDay === 6) { // saturday
-		curDate.setUTCDate(curDate.getUTCDate() + 2 );
-	}
-
-
-
-	const weeksToMoveForward = Math.floor(businessDays / 5);
-	const remainingDays =  businessDays % 5;
-
-	curDate.setUTCDate(curDate.getUTCDate() + weeksToMoveForward*7 + remainingDays );
-
-	const endDay = curDate.getUTCDay();
-
-	// move to Monday ...
-	if(endDay === 0 ) { // sunday
-		curDate.setUTCDate(curDate.getUTCDate() + 1 );
-	} else if(endDay === 6) { // saturday
-		curDate.setUTCDate(curDate.getUTCDate() + 2 );
-	}
-	console.log(startDate, businessDays, curDate);
-	return curDate;
 }
 
 
