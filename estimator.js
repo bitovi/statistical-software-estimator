@@ -5,7 +5,6 @@ import {getEndDateFromUTCStartDateAndBusinessDays} from "./shared/dateUtils.js";
 
 const formInput = "shadow border rounded py-1 px-1 text-gray-700  focus:outline-none focus:shadow-outline"
 
-
 const _10_confidence = 1.28; //σ
 const _100_confidence = 0; // σ
 
@@ -21,12 +20,12 @@ const estimateToOutputConverter = {
 		"weeks":({estimate, pointsPerDay})=> estimate / pointsPerDay / 5
 	},
 	"days": {
-		"story points": ({estimate})=> estimate * pointsPerDay,
+		"story points": ({estimate, pointsPerDay})=> estimate * pointsPerDay,
 		"days": identityEstimate,
 		"weeks":({estimate})=> estimate / 5
 	},
 	"weeks": {
-		"story points": ({estimate})=> estimate * pointsPerDay / 5,
+		"story points": ({estimate, pointsPerDay})=> estimate * pointsPerDay / 5,
 		"days": ({estimate})=> estimate * 5,
 		"weeks":identityEstimate
 	}
@@ -73,7 +72,7 @@ export class StatisticalEstimator extends StacheElement {
 				</p>
 
 
-				{{# eq(this.estimateUnit, "story points")}}
+				{{# or( eq(this.estimateUnit, "story points"), eq(this.outputUnit, "story points") ) }}
 
 					<label for="sprintWorkingDays"  class="font-bold">Sprint length in working days:</label>
 
@@ -301,9 +300,8 @@ export class StatisticalEstimator extends StacheElement {
 	}
 	toStandardDeviations(confidence){
 		const slope = -1 * (this.highConfidenceStds - this.lowConfidenceStds) / (this.highConfidence - this.lowConfidence)
-
 		const uncertainty = (100 - confidence);
-		return  (uncertainty * slope).toFixed(1);
+		return  (uncertainty * slope)//.toFixed(1);
 	}
 	connected(){
 		this.listenTo("dataForGraph", ({value})=> {
