@@ -1,7 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.by-bitovi {
+  width: 85px;
+  height: 30px;
+  background: url("./by-bitovi-logo.svg") no-repeat;
+  background-position: center;
+  background-size: contain;
+  color: transparent;
+  display: inline-block;
+}
+
 /** Graph Styles */
-
-
-
 
 .focus line {
     stroke: #E4002B;
@@ -44,6 +56,7 @@
 .overlay {
 	fill: none;
 	pointer-events: all;
+  touch-action: none;
 }
 
 
@@ -52,7 +65,7 @@
 }
 
 #chartdiv {
-	height: 500px;
+	height: 480px;
 }
 
 

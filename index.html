@@ -6,70 +6,51 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#ffffff" />
     <title>Statistical Software Estimator</title>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jstat/latest/jstat.min.js"></script>
-    <!-- <link rel="stylesheet" type="text/css" href="main.css"> -->
-    <link rel="stylesheet" type="text/css" href="estimator-style.css">
-		<script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" type="text/css" href="production.css">
     <!-- Attribution -->
     <!-- Sliders - https://codepen.io/nosurprisethere/pen/KJxwQz -->
     <!-- Interactive Normal distribution https://bl.ocks.org/ctufts/a90019910166d8378c6462dfd2f6f3ec -->
 </head>
 
-<body>
-<!--
-<div  class="bg-slate-300">
-	<nav class="container mx-auto py-2 max-w-screen-md">
+<body class="bg-sky-100">
+<div  class="bg-white px-2">
+	<nav class="container mx-auto py-2 max-w-screen-2xl">
 		<div class="flex">
 			<ul class="flex gap-3 flex-grow">
 				<li>
 					<a href="https://www.bitovi.com/services/agile-project-management-consulting"
-						class="hover:text-sky-700">Statistical Estimator</a>
-				</li>
-				<li>
-					<a href="https://jira-auto-scheduler.bitovi-jira.com/"
-						class="hover:text-sky-700 underline text-blue-500">Jira AutoScheduler</a>
-				</li>
-				<li>
-					<a href="https://bitovi-jira-timeline-report-main.bitovi-jira.com/"
-						class="hover:text-sky-700 underline text-blue-500">Timeline Report</a>
+						class="color-gray-900 text-2xl">Statistical Software Estimator</a>
 				</li>
 			</ul>
 			<div>
 				<a href="https://www.bitovi.com/services/agile-project-management-consulting"
-					class="hover:text-sky-700 underline text-blue-500">Bitovi</a>
+					class="by-bitovi">Bitovi</a>
 			</div>
 		</div>
 
 	</nav>
 </div>
--->
-<div  class="container mx-auto  max-w-4xl text-lg">
 
+<statistical-estimator class='gap-x-28 flex container mx-auto flex-wrap px-2'>
+	<p class="p-4">Loading ...
+	</p>
+</statistical-estimator>
 
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jstat/latest/jstat.min.js"></script>
+<script type="module" src="./estimator.js"></script>
 
-    <h1 class="text-3xl/8 font-bold pt-8 pb-4">Statistical Software Estimator</h1>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QVCVF65S57"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-		<p>This tool provides more accurate software estimates.
-				For the theory behind it, read
-				<a class="hover:text-sky-700 underline text-blue-500"
-					href="https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html">Why software projects take longer than you think: a statistical model</a>.
-				A big shout out to
-				<a href="https://www.linkedin.com/in/jeremiah-sheehy-ba865a18b/"
-					 class="hover:text-sky-700 underline text-blue-500"
-				>Jeremiah Sheehy</a> who built the first version of this tool and donated
-				it to us so we could improve it. Find a copy of the source at
-				<a href="https://github.com/bitovi/statistical-software-estimator"
-					 class="hover:text-sky-700 underline text-blue-500"
-				>Github</a>.
-		</p>
-		<statistical-estimator class='block'></statistical-estimator>
-
-
-</div>
-<script type="module" src="./estimator.js">
-			</script>
+  gtag('config', 'G-QVCVF65S57');
+</script>
 </body>
 
 </html>

@@ -54,140 +54,171 @@ const dateFormatter = new Intl.DateTimeFormat('en-US',{timeZone: "UTC"})
 
 export class StatisticalEstimator extends StacheElement {
 	static view = `
+    <!-- LEFT SIDE -->
+    <div class='  grow'>
+      <div class="pt-6">
+          <label for="estimate" class="block">What is your raw estimate in {{this.estimateUnit}}?</label>
 
-		<details class='bg-sky-100 p-3 mt-6'>
-			<summary>Configure estimation units</summary>
+          <div class="flex gap-3">
+            <input type="range" min="1" max="300" step="1" id="estimate" class="flex-grow"
+              on:input:valueAsNumber:bind="this.estimate"/>
+            <input type="number" valueAsNumber:bind="this.estimate" class="${formInput} w-16" />
+          </div>
 
-			<div class="grid gap-3 p-3 configure-estimation">
-				<label class="font-bold">Estimate Unit:</label>
-				<div><select value:bind="this.estimateUnit"
-					id="estimateUnit"
-					class="${formInput}">
-					<option value="days">Days</option>
-					<option value="weeks">Weeks</option>
-					<option value="story points">Story Points</option>
-				</select></div>
-				<p class='help-text'>
-					<code class="font-mono">Estimate Unit</code> is the unit your team uses to provide <code class="font-mono">raw estimates</code>.
-				</p>
+      </div>
 
+      {{# eq(this.spreadUnit, "standard deviations") }}
+        <div class="py-3">
+            <label for="estimate" class="block">How many standard deviations?</label>
 
-				{{# or( eq(this.estimateUnit, "story points"), eq(this.outputUnit, "story points") ) }}
+            <div class="flex gap-3">
+              <input type="range" min="{{this.highConfidenceStds}}" max="{{this.lowConfidenceStds}}" step="0.1" id="estimate" class="flex-grow"
+                on:input:valueAsNumber:bind="this.standardDeviations"/>
+              <input type="number" valueAsNumber:bind="this.standardDeviations" class="${formInput} w-16" />
+            </div>
 
-					<label for="sprintWorkingDays"  class="font-bold">Sprint length in working days:</label>
+        </div>
+      {{/ eq }}
 
-					<div><input id="sprintWorkingDays"
-					type="number" valueAsNumber:bind="this.sprintWorkingDays" class="${formInput} w-16" /></div>
+      {{# eq(this.spreadUnit, "confidence") }}
+        <div class="py-3">
+            <label for="estimate" class="block">How confident are you about your estimate?</label>
 
-					<p  class='help-text'>Specify how many working days are in your team's sprints. For example, if you have
-					a two week sprint, you should enter 10.</p>
+            <div class="flex gap-3">
+              <input type="range" min="{{this.lowConfidence}}" max="{{this.highConfidence}}" step="5"
+                id="estimate" class="flex-grow"
+                on:input:valueAsNumber:bind="this.confidence"/>
+              <input type="number" valueAsNumber:bind="this.confidence" class="${formInput} w-16" />
+            </div>
 
-					<label for="velocity"  class="font-bold">Sprint velocity in story points:</label>
-					<div><input id="velocity"
-						type="number" valueAsNumber:bind="this.velocity" class="${formInput} w-16" /></div>
-
-					<p class='help-text'>Specify how many sprints your team completes a sprint.</p>
-
-				{{/ eq }}
-
-				<label for="spreadUnit" class="font-bold">Spread Unit:</label>
-				<div>
-						<select value:bind="this.spreadUnit"
-							id="spreadUnit"
-							class="${formInput}">
-							<option value="standard deviations">Standard Deviations</option>
-							<option value="confidence">Confidence</option>
-						</select>
-				</div>
-				<p class='help-text'><code class="font-mono">Spread Unit</code> is the unit your team uses to describe how
-				close or far away the results might be from the <code class="font-mono">raw estimate</code>.
-				</p>
-
-				<label for="spreadUnit" class="font-bold">Output Unit:</label>
-				<div>
-						<select value:bind="this.outputUnit"
-							id="outputUnit"
-							class="${formInput}">
-							<option value="days">Days</option>
-							<option value="weeks">Weeks</option>
-							{{# eq(this.estimateUnit, "story points") }}
-								<option value="story points">Story Points</option>
-							{{/ eq}}
-						</select>
-				</div>
-				<p class='help-text'><code class="font-mono">Output Unit</code> is the unit you want adjusted times provided in.
-				</p>
-
-				<label for="startDate" class="font-bold">Start Date:</label>
-				<div>
-					<input type="date"
-							valueAsDate:bind="this.startDate"/>
-				</div>
-				<p class='help-text'>Setting <code class="font-mono">Start Date</code> lets you see
-				the estimated completion date of your work.
-				</p>
-
-			</div>
-
-		</details>
-
-			<div class="pt-6">
-					<label for="estimate" class="block">What is your raw estimate in {{this.estimateUnit}}?</label>
-
-					<div class="flex gap-3">
-						<input type="range" min="1" max="300" step="1" id="estimate" class="flex-grow"
-							on:input:valueAsNumber:bind="this.estimate"/>
-						<input type="number" valueAsNumber:bind="this.estimate" class="${formInput} w-16" />
-					</div>
-
-			</div>
-
-			{{# eq(this.spreadUnit, "standard deviations") }}
-				<div class="py-3">
-						<label for="estimate" class="block">How many standard deviations?</label>
-
-						<div class="flex gap-3">
-							<input type="range" min="{{this.highConfidenceStds}}" max="{{this.lowConfidenceStds}}" step="0.1" id="estimate" class="flex-grow"
-								on:input:valueAsNumber:bind="this.standardDeviations"/>
-							<input type="number" valueAsNumber:bind="this.standardDeviations" class="${formInput} w-16" />
-						</div>
-
-				</div>
-			{{/ eq }}
-
-			{{# eq(this.spreadUnit, "confidence") }}
-				<div class="py-3">
-						<label for="estimate" class="block">How confident are you about your estimate?</label>
-
-						<div class="flex gap-3">
-							<input type="range" min="{{this.lowConfidence}}" max="{{this.highConfidence}}" step="5"
-								id="estimate" class="flex-grow"
-								on:input:valueAsNumber:bind="this.confidence"/>
-							<input type="number" valueAsNumber:bind="this.confidence" class="${formInput} w-16" />
-						</div>
-
-				</div>
-			{{/ eq }}
+        </div>
+      {{/ eq }}
 
 
-			<p class='pt-3'>On average, work will complete in {{this.prettyAdjustedMean}}{{# if(this.startDate) }}
-				on {{this.prettyEndDateOfMeanEstimate}}.
-				{{ else }}.{{/ if}}
-			</p>
-			<p class=''>It's 70% likely work will complete in {{this.prettyAdjustedEstimate70}}{{# if(this.startDate) }}
-				on {{this.prettyEndDateOfAdjustedEstimate70}}.
-				{{ else }}.{{/ if}}
-			</p>
-			<p class=''>It's 80% likely work will complete in {{this.prettyAdjustedEstimate80}}{{# if(this.startDate) }}
-				on {{this.prettyEndDateOfAdjustedEstimate80}}.
-				{{ else }}.{{/ if}}
-			</p>
-			<p class='pb-3'>It's 90% likely work will complete in {{this.prettyAdjustedEstimate90}}{{# if(this.startDate) }}
-				on {{this.prettyEndDateOfAdjustedEstimate90}}.
-				{{ else }}.{{/ if}}
-			</p>
+      <p class='pt-3'>On average, work will complete in {{this.prettyAdjustedMean}}{{# if(this.startDate) }}
+        on {{this.prettyEndDateOfMeanEstimate}}.
+        {{ else }}.{{/ if}}
+      </p>
+      <p class=''>It's 70% likely work will complete in {{this.prettyAdjustedEstimate70}}{{# if(this.startDate) }}
+        on {{this.prettyEndDateOfAdjustedEstimate70}}.
+        {{ else }}.{{/ if}}
+      </p>
+      <p class=''>It's 80% likely work will complete in {{this.prettyAdjustedEstimate80}}{{# if(this.startDate) }}
+        on {{this.prettyEndDateOfAdjustedEstimate80}}.
+        {{ else }}.{{/ if}}
+      </p>
+      <p class='pb-3'>It's 90% likely work will complete in {{this.prettyAdjustedEstimate90}}{{# if(this.startDate) }}
+        on {{this.prettyEndDateOfAdjustedEstimate90}}.
+        {{ else }}.{{/ if}}
+      </p>
 
-			<div id="chartdiv"></div>
+      <div id="chartdiv" style="touch-action: none;"></div>
+    </div>
+    <!-- RIGHT SIDE -->
+    <div class='shrink xl:max-w-[520px]'>
+      <p class='text-sm mt-8 mb-2'>This tool provides more accurate software estimates.
+        For the theory behind it, read
+        <a class="hover:text-sky-700 underline text-blue-500" href="https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html">Why software projects take longer than you think: a statistical model</a>.
+        A big shout out to
+        <a href="https://www.linkedin.com/in/jeremiah-sheehy-ba865a18b/" class="hover:text-sky-700 underline text-blue-500">Jeremiah Sheehy</a> who built the first version of this tool and donated
+        it to us so we could improve it. Find a copy of the source at
+        <a href="https://github.com/bitovi/statistical-software-estimator" class="hover:text-sky-700 underline text-blue-500">Github</a>.
+      </p>
+
+      <p class='text-sm mb-8'>If you like this tool, checkout Bitovi's
+        <a href="https://jira-auto-scheduler.bitovi-jira.com/"
+          class="hover:text-sky-700 underline text-blue-500">Statistical AutoScheduler</a>
+        and <a href="https://timeline-report-main.bitovi-jira.com/"
+          class="hover:text-sky-700 underline text-blue-500">Timeline Report</a> tools,
+          and our <a class="hover:text-sky-700 underline text-blue-500" href="https://www.bitovi.com/academy/learn-agile-program-management-with-jira.html">Program Management Training</a>
+          that puts it all together.
+      </p>
+
+
+      <details class='border-color-gray-200 border-solid border rounded-lg bg-white'>
+  			<summary class='text-base p-5 bg-gray-100'>Configure</summary>
+
+  			<div class="grid gap-3 p-3 configure-estimation">
+  				<label class="font-bold">Estimate Unit:</label>
+  				<div><select value:bind="this.estimateUnit"
+  					id="estimateUnit"
+  					class="${formInput}">
+  					<option value="days">Days</option>
+  					<option value="weeks">Weeks</option>
+  					<option value="story points">Story Points</option>
+  				</select></div>
+  				<p class='help-text'>
+  					<code class="font-mono">Estimate Unit</code> is the unit your team uses to provide <code class="font-mono">raw estimates</code>.
+  				</p>
+
+
+  				{{# or( eq(this.estimateUnit, "story points"), eq(this.outputUnit, "story points") ) }}
+
+  					<label for="sprintWorkingDays"  class="font-bold">Sprint length in working days:</label>
+
+  					<div><input id="sprintWorkingDays"
+  					type="number" valueAsNumber:bind="this.sprintWorkingDays" class="${formInput} w-16" /></div>
+
+  					<p  class='help-text'>Specify how many working days are in your team's sprints. For example, if you have
+  					a two week sprint, you should enter 10.</p>
+
+  					<label for="velocity"  class="font-bold">Sprint velocity in story points:</label>
+  					<div><input id="velocity"
+  						type="number" valueAsNumber:bind="this.velocity" class="${formInput} w-16" /></div>
+
+  					<p class='help-text'>Specify how many sprints your team completes a sprint.</p>
+
+  				{{/ or }}
+
+  				<label for="spreadUnit" class="font-bold">Spread Unit:</label>
+  				<div>
+  						<select value:bind="this.spreadUnit"
+  							id="spreadUnit"
+  							class="${formInput}">
+  							<option value="standard deviations">Standard Deviations</option>
+  							<option value="confidence">Confidence</option>
+  						</select>
+  				</div>
+  				<p class='help-text'><code class="font-mono">Spread Unit</code> is the unit your team uses to describe how
+  				close or far away the results might be from the <code class="font-mono">raw estimate</code>.
+  				</p>
+
+  				<label for="spreadUnit" class="font-bold">Output Unit:</label>
+  				<div>
+  						<select value:bind="this.outputUnit"
+  							id="outputUnit"
+  							class="${formInput}">
+  							<option value="days">Days</option>
+  							<option value="weeks">Weeks</option>
+  							{{# eq(this.estimateUnit, "story points") }}
+  								<option value="story points">Story Points</option>
+  							{{/ eq}}
+  						</select>
+  				</div>
+  				<p class='help-text'><code class="font-mono">Output Unit</code> is the unit you want adjusted times provided in.
+  				</p>
+
+  				<label for="startDate" class="font-bold">Start Date:</label>
+  				<div>
+  					<input type="date"
+                class="${formInput}"
+  							valueAsDate:bind="this.startDate"/>
+  				</div>
+  				<p class='help-text'>Setting <code class="font-mono">Start Date</code> lets you see
+  				the estimated completion date of your work.
+  				</p>
+
+  			</div>
+
+  		</details>
+
+
+
+    </div>
+
+
+
+
 	`;
 
 	static props = {
@@ -304,6 +335,10 @@ export class StatisticalEstimator extends StacheElement {
 		return  (uncertainty * slope)//.toFixed(1);
 	}
 	connected(){
+    document.getElementById("chartdiv").addEventListener("pointerdown",(ev)=>{
+      ev.preventDefault();
+    })
+
 		this.listenTo("dataForGraph", ({value})=> {
 			graph(value);
 		})

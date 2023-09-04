@@ -125,15 +125,16 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 				left: 50
 		};
 		// Lets not hard-code the chart div eventually
-		const baseWidth = Math.min( document.getElementById("chartdiv").clientWidth, window.innerWidth - 20);
-
-
-		var width = baseWidth - margin.left - margin.right,
-				height = 500 - margin.top - margin.bottom;
-
-		var svg = d3.select("#chartdiv");
+		let svg = d3.select("#chartdiv");
 		svg.selectAll("*").remove();
-		var svg = d3.select("#chartdiv").append("svg")
+
+
+		const baseWidth = document.getElementById("chartdiv").parentElement.clientWidth - 20;
+		var width = baseWidth - margin.left - margin.right,
+				height = 480 - margin.top - margin.bottom;
+
+
+		svg = d3.select("#chartdiv").append("svg")
 				.attr("width", width + margin.left + margin.right)
 				.attr("height", height + margin.top + margin.bottom)
 				.append("g")
@@ -222,9 +223,9 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 
 		svg.append("text")
 				.attr("id", "pdisplay")
-				.attr("x", 150)
-				.attr("y", 50)
-				.style("text-anchor", "middle");
+				.attr("x", 15)
+				.attr("y", 0)
+				.style("text-anchor", "start");
 
 
 
@@ -272,13 +273,13 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 				.attr("class", "overlay")
 				.attr("width", width)
 				.attr("height", height)
-				.on("mouseover", function() {
+				.on("pointerover", function() {
 						focus.style("display", null);
 				})
-				.on("mouseout", function() {
+				.on("pointerout", function() {
 						focus.style("display", "inline");
 				})
-				.on("mousemove", mousemove);
+				.on("pointermove", mousemove);
 
 		// append Axes ///////////////////////////
 		svg.append("g")
@@ -302,10 +303,10 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 				.attr("x", -150)
 				.attr("dy", "0.71em")
 				.attr("fill", "#000")
-				.text("Likelyhood of completion");;
+				.text("Likelihood of completion");;
 
 
-		function mousemove() {
+		function mousemove(ev) {
 				const d = getClosestDataPointToEvent({dataset, element: this, xScale});
 
 				updateLineTo({line: focus, xScale, yScale, dataPoint: d, height});

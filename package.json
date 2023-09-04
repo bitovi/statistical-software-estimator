@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "dev": "npx tailwindcss -i ./estimator-style.css -o ./production.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  }
+}
