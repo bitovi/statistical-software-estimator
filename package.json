@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "npx tailwindcss -i ./estimator-style.css -o ./production.css --watch"
+    "dev": "npx tailwindcss -i ./estimator-style.css -o ./production.css --watch --minify"
   },
   "devDependencies": {
     "tailwindcss": "^3.3.3"
