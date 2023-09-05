@@ -4,7 +4,7 @@ import {saveJSONToUrl} from "./shared/state-storage.js";
 import {getEndDateFromUTCStartDateAndBusinessDays} from "./shared/dateUtils.js";
 
 const formInput = "shadow border rounded py-1 px-1 text-gray-700  focus:outline-none focus:shadow-outline"
-
+const linkStyle = "hover:text-sky-700 underline text-blue-500";
 const _10_confidence = 1.28; //σ
 const _100_confidence = 0; // σ
 
@@ -60,7 +60,7 @@ export class StatisticalEstimator extends StacheElement {
           <label for="estimate" class="block">What is your raw estimate in {{this.estimateUnit}}?</label>
 
           <div class="flex gap-3">
-            <input type="range" min="1" max="300" step="1" id="estimate" class="flex-grow"
+            <input type="range" min="1" max="300" step="1" id="estimate" class="flex-grow cursor-ew-resize"
               on:input:valueAsNumber:bind="this.estimate"/>
             <input type="number" valueAsNumber:bind="this.estimate" class="${formInput} w-16" />
           </div>
@@ -72,7 +72,8 @@ export class StatisticalEstimator extends StacheElement {
             <label for="estimate" class="block">How many standard deviations?</label>
 
             <div class="flex gap-3">
-              <input type="range" min="{{this.highConfidenceStds}}" max="{{this.lowConfidenceStds}}" step="0.1" id="estimate" class="flex-grow"
+              <input type="range" min="{{this.highConfidenceStds}}" max="{{this.lowConfidenceStds}}" step="0.1" id="estimate"
+               class="flex-grow cursor-ew-resize"
                 on:input:valueAsNumber:bind="this.standardDeviations"/>
               <input type="number" valueAsNumber:bind="this.standardDeviations" class="${formInput} w-16" />
             </div>
@@ -86,7 +87,7 @@ export class StatisticalEstimator extends StacheElement {
 
             <div class="flex gap-3">
               <input type="range" min="{{this.lowConfidence}}" max="{{this.highConfidence}}" step="5"
-                id="estimate" class="flex-grow"
+                id="estimate" class="flex-grow cursor-ew-resize"
                 on:input:valueAsNumber:bind="this.confidence"/>
               <input type="number" valueAsNumber:bind="this.confidence" class="${formInput} w-16" />
             </div>
@@ -112,31 +113,35 @@ export class StatisticalEstimator extends StacheElement {
         {{ else }}.{{/ if}}
       </p>
 
-      <div id="chartdiv" style="touch-action: none;"></div>
+      <div id="chartdiv" style="touch-action: none" class='bg-white rounded-lg drop-shadow-md'></div>
     </div>
     <!-- RIGHT SIDE -->
     <div class='shrink xl:max-w-[520px]'>
-      <p class='text-sm mt-8 mb-2'>This tool provides more accurate software estimates.
+      <p class='text-base mt-8 mb-2'>This tool provides more accurate software estimates.
         For the theory behind it, read
-        <a class="hover:text-sky-700 underline text-blue-500" href="https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html">Why software projects take longer than you think: a statistical model</a>.
+        <a class="${linkStyle}" href="https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html">Why software projects take longer than you think: a statistical model</a>.
         A big shout out to
-        <a href="https://www.linkedin.com/in/jeremiah-sheehy-ba865a18b/" class="hover:text-sky-700 underline text-blue-500">Jeremiah Sheehy</a> who built the first version of this tool and donated
+        <a href="https://www.linkedin.com/in/jeremiah-sheehy-ba865a18b/"  class="${linkStyle}">Jeremiah Sheehy</a> who built the first version of this tool and donated
         it to us so we could improve it. Find a copy of the source at
-        <a href="https://github.com/bitovi/statistical-software-estimator" class="hover:text-sky-700 underline text-blue-500">Github</a>.
+        <a href="https://github.com/bitovi/statistical-software-estimator"  class="${linkStyle}">Github</a>.
       </p>
 
-      <p class='text-sm mb-8'>If you like this tool, checkout Bitovi's
+      <p class='text-base mb-2'>If you like this tool, checkout Bitovi's
         <a href="https://jira-auto-scheduler.bitovi-jira.com/"
-          class="hover:text-sky-700 underline text-blue-500">Statistical AutoScheduler</a>
+           class="${linkStyle}">Statistical AutoScheduler</a>
         and <a href="https://timeline-report-main.bitovi-jira.com/"
           class="hover:text-sky-700 underline text-blue-500">Timeline Report</a> tools,
-          and our <a class="hover:text-sky-700 underline text-blue-500" href="https://www.bitovi.com/academy/learn-agile-program-management-with-jira.html">Program Management Training</a>
+          and our <a class="${linkStyle}" href="https://www.bitovi.com/academy/learn-agile-program-management-with-jira.html">Program Management Training</a>
           that puts it all together.
+      </p>
+
+      <p class='text-base mb-8'>Got questions? Chat with us on
+        <a class="${linkStyle}" href="https://discord.gg/J7ejFsZnJ4">discord</a>.
       </p>
 
 
       <details class='border-color-gray-200 border-solid border rounded-lg bg-white'>
-  			<summary class='text-base p-5 bg-gray-100'>Configure</summary>
+  			<summary class='text-base p-5 bg-gray-100 cursor-pointer'>Configure</summary>
 
   			<div class="grid gap-3 p-3 configure-estimation">
   				<label class="font-bold">Estimate Unit:</label>

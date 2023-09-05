@@ -129,7 +129,7 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 		svg.selectAll("*").remove();
 
 
-		const baseWidth = document.getElementById("chartdiv").parentElement.clientWidth - 20;
+		const baseWidth = document.getElementById("chartdiv").parentElement.clientWidth;
 		var width = baseWidth - margin.left - margin.right,
 				height = 480 - margin.top - margin.bottom;
 
@@ -288,7 +288,8 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 				.call(xAxis)
 				.append("text")
 				.attr("y", 25)
-				.attr("x", 450)
+				.attr("x", "50%")
+				.style("text-anchor", "end")
 				.attr("dy", "0.71em")
 				.attr("fill", "#000")
 				.text(capitalizedOutputUnit);
@@ -299,7 +300,7 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 				.call(yAxis)
 				.append("text")
 				.attr("transform", "rotate(-90)")
-				.attr("y", -45)
+				.attr("y", -40)
 				.attr("x", -150)
 				.attr("dy", "0.71em")
 				.attr("fill", "#000")
