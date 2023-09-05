@@ -5,12 +5,11 @@
 - [Contributing](#contributing)
 - [Thanks](#thanks)
 
-The [Statistical Software Estimator](https://bitovi.github.io/statistical-software-estimator/) provides more accurate software estimates. For the theory behind it, read [Why software projects take longer than you think: a statistical model](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html). 
+The [Statistical Software Estimator](https://bitovi.github.io/statistical-software-estimator/) provides more accurate software estimates. For the theory behind it, read [Why software projects take longer than you think: a statistical model](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html).
 
 [![Software Estimator Screen Shot](https://github.com/bitovi/statistical-software-estimator/assets/78602/9d40886a-eb4f-4efa-9b4b-99d37cbe087f)](https://bitovi.github.io/statistical-software-estimator/)
 
 Instead of modeling estimates with one value (the estimate), this tool lets you model estimates with probabilities, specifically a [log normal distribution](https://en.wikipedia.org/wiki/Log-normal_distribution) that more accurately models how software development times actually turn out.
-
 
 ## Need help estimating or have questions?
 
@@ -31,7 +30,7 @@ __NOTICE__ as you change the settings from the default, these settings are saved
 
 ![image](https://github.com/bitovi/statistical-software-estimator/assets/78602/aa30e3b1-69c7-4739-900f-f685578706dd)
 
-## Use 
+## Use
 
 Once you've configured your settings.  It's time to start estimating.  Ask your team for an estimate and how confident they are about their estimate.  Enter the values and see the result.
 
@@ -46,7 +45,7 @@ You can move your mouse over the graph to see the probability of achieving your 
 
 ## Contributing
 
-This is an MIT licensed project. Please fork and improve. 
+This is an MIT licensed project. Please fork and improve.
 
 If you have suggestions for improvements, please create an issue in this repository.
 
