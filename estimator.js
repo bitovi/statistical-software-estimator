@@ -129,7 +129,7 @@ export class StatisticalEstimator extends StacheElement {
       <p class='text-base mb-2'>If you like this tool, checkout Bitovi's
         <a href="https://jira-auto-scheduler.bitovi-jira.com/"
            class="${linkStyle}">Statistical AutoScheduler</a>
-        and <a href="https://timeline-report-main.bitovi-jira.com/"
+        and <a href="https://timeline-report.bitovi-jira.com/"
           class="hover:text-sky-700 underline text-blue-500">Timeline Report</a> tools,
           and our <a class="${linkStyle}" href="https://www.bitovi.com/academy/learn-agile-program-management-with-jira.html">Program Management Training</a>
           that puts it all together.
