@@ -1,4 +1,4 @@
-import { StacheElement, type, ObservableObject } from "//unpkg.com/can@6/core.min.mjs";
+import { StacheElement, type, ObservableObject } from "//unpkg.com/can@6.6.3/core.min.mjs";
 import graph from "./graph.js";
 import {saveJSONToUrl} from "./shared/state-storage.js";
 import {getEndDateFromUTCStartDateAndBusinessDays} from "./shared/dateUtils.js";
