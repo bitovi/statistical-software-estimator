@@ -18,7 +18,7 @@ This project is supported by [Bitovi, an agile project management consultancy](h
 - [Discord Community](https://discord.gg/J7ejFsZnJ4)
 - [Twitter](https://twitter.com/bitovi)
 
-Or, you can hire us for training, consulting, or development. [Set up a free consultation.](https://www.bitovi.com/services/agile-project-management-consulting)
+Or, you can hire us for training, consulting, or development. [Set up a free consultation](https://www.bitovi.com/services/agile-project-management-consulting).
 
 ## Configuration
 
