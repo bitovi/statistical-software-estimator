@@ -60,7 +60,7 @@ export class StatisticalEstimator extends StacheElement {
           <label for="estimate" class="block text-white leading-5">What is your raw estimate in {{this.estimateUnit}}?</label>
 
           <div class="flex gap-3">
-            <input type="range" min="1" max="300" step="1" id="estimate" class="flex-grow cursor-ew-resize "
+            <input type="range" min="1" max="100" step="1" id="estimate" class="flex-grow cursor-ew-resize "
               on:input:valueAsNumber:bind="this.estimate"/>
             <input type="number" valueAsNumber:bind="this.estimate" class="${formInput} w-16 text-xl leading-[30px]" />
           </div>
