@@ -1,4 +1,4 @@
-import { StacheElement, type, ObservableObject } from "//unpkg.com/can@6.6.3/core.min.mjs";
+import { StacheElement, type, ObservableObject } from "./can.min.mjs";
 import graph from "./graph.js";
 import {saveJSONToUrl} from "./shared/state-storage.js";
 import {getEndDateFromUTCStartDateAndBusinessDays} from "./shared/dateUtils.js";
@@ -56,92 +56,93 @@ export class StatisticalEstimator extends StacheElement {
 	static view = `
     <!-- LEFT SIDE -->
     <div class='  grow'>
-      <div class="pt-6">
-          <label for="estimate" class="block">What is your raw estimate in {{this.estimateUnit}}?</label>
+      <div class="pt-5">
+          <label for="estimate" class="block text-white leading-5">What is your raw estimate in {{this.estimateUnit}}?</label>
 
           <div class="flex gap-3">
-            <input type="range" min="1" max="300" step="1" id="estimate" class="flex-grow cursor-ew-resize"
+            <input type="range" min="1" max="300" step="1" id="estimate" class="flex-grow cursor-ew-resize "
               on:input:valueAsNumber:bind="this.estimate"/>
-            <input type="number" valueAsNumber:bind="this.estimate" class="${formInput} w-16" />
+            <input type="number" valueAsNumber:bind="this.estimate" class="${formInput} w-16 text-xl leading-[30px]" />
           </div>
 
       </div>
 
       {{# eq(this.spreadUnit, "standard deviations") }}
-        <div class="py-3">
-            <label for="estimate" class="block">How many standard deviations?</label>
+        <div class="py-5">
+            <label for="estimate" class="block text-white leading-5">How many standard deviations?</label>
 
             <div class="flex gap-3">
               <input type="range" min="{{this.highConfidenceStds}}" max="{{this.lowConfidenceStds}}" step="0.1" id="estimate"
                class="flex-grow cursor-ew-resize"
                 on:input:valueAsNumber:bind="this.standardDeviations"/>
-              <input type="number" valueAsNumber:bind="this.standardDeviations" class="${formInput} w-16" />
+              <input type="number" valueAsNumber:bind="this.standardDeviations" class="${formInput} w-16 text-xl leading-[30px]" />
             </div>
 
         </div>
       {{/ eq }}
 
       {{# eq(this.spreadUnit, "confidence") }}
-        <div class="py-3">
-            <label for="estimate" class="block">How confident are you about your estimate?</label>
+        <div class="py-5">
+            <label for="estimate" class="block text-white leading-5">How confident are you about your estimate?</label>
 
             <div class="flex gap-3">
               <input type="range" min="{{this.lowConfidence}}" max="{{this.highConfidence}}" step="5"
                 id="estimate" class="flex-grow cursor-ew-resize"
                 on:input:valueAsNumber:bind="this.confidence"/>
-              <input type="number" valueAsNumber:bind="this.confidence" class="${formInput} w-16" />
+              <input type="number" valueAsNumber:bind="this.confidence" class="${formInput} w-16 text-xl leading-[30px]" />
             </div>
 
         </div>
       {{/ eq }}
+	
+	  <div class="flex gap-2 place-content-between mb-5">
+	  	<div class="bg-yellow-400 rounded text-center p-1 drop-shadow grow shrink">
+			
+			<h4 class="font-bold text-lg">{{this.prettyAdjustedMean}}</h4>
+			{{# if(this.startDate) }}
+				<h5>due {{this.prettyEndDateOfMeanEstimate}}</h5>
+			{{/ if }}
+			<p>on average</p>
+		</div>
+
+		<div class="bg-teal-400 rounded text-center p-1 drop-shadow grow shrink">
+			<h4 class="font-bold text-lg">{{this.prettyAdjustedEstimate70}}</h4>
+			{{# if(this.startDate) }}
+				<h5>due {{this.prettyEndDateOfAdjustedEstimate70}}</h5>
+			{{/ if }}
+			<p>70% likelihood</p>
 
 
-      <p class='pt-3'>On average, work will complete in {{this.prettyAdjustedMean}}{{# if(this.startDate) }}
-        on {{this.prettyEndDateOfMeanEstimate}}.
-        {{ else }}.{{/ if}}
-      </p>
-      <p class=''>It's 70% likely work will complete in {{this.prettyAdjustedEstimate70}}{{# if(this.startDate) }}
-        on {{this.prettyEndDateOfAdjustedEstimate70}}.
-        {{ else }}.{{/ if}}
-      </p>
-      <p class=''>It's 80% likely work will complete in {{this.prettyAdjustedEstimate80}}{{# if(this.startDate) }}
-        on {{this.prettyEndDateOfAdjustedEstimate80}}.
-        {{ else }}.{{/ if}}
-      </p>
-      <p class='pb-3'>It's 90% likely work will complete in {{this.prettyAdjustedEstimate90}}{{# if(this.startDate) }}
-        on {{this.prettyEndDateOfAdjustedEstimate90}}.
-        {{ else }}.{{/ if}}
-      </p>
+		</div>
+
+		<div class="bg-green-400 rounded text-center p-1 drop-shadow grow shrink">
+			<h4 class="font-bold text-lg">{{this.prettyAdjustedEstimate80}}</h4>
+			{{# if(this.startDate) }}
+				<h5>due {{this.prettyEndDateOfAdjustedEstimate80}}</h5>
+			{{/ if }}
+			<p>80% likelihood</p>
+		</div>
+
+		<div class="bg-green-200 rounded text-center p-1 drop-shadow grow shrink">
+			<h4 class="font-bold text-lg">{{this.prettyAdjustedEstimate90}}</h4>
+			{{# if(this.startDate) }}
+				<h5>due {{this.prettyEndDateOfAdjustedEstimate90}}</h5>
+			{{/ if }}
+			<p>90% likelihood</p>	
+		</div>
+	  </div>
+
+      
 
       <div id="chartdiv" style="touch-action: none" class='bg-white rounded-lg drop-shadow-md'></div>
     </div>
     <!-- RIGHT SIDE -->
     <div class='shrink xl:max-w-[520px]'>
-      <p class='text-base mt-8 mb-2'>This tool provides more accurate software estimates.
-        For the theory behind it, read
-        <a class="${linkStyle}" href="https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html">Why software projects take longer than you think: a statistical model</a>.
-        A big shout out to
-        <a href="https://www.linkedin.com/in/jeremiah-sheehy-ba865a18b/"  class="${linkStyle}">Jeremiah Sheehy</a> who built the first version of this tool and donated
-        it to us so we could improve it. Find a copy of the source at
-        <a href="https://github.com/bitovi/statistical-software-estimator"  class="${linkStyle}">Github</a>.
-      </p>
-
-      <p class='text-base mb-2'>If you like this tool, checkout Bitovi's
-        <a href="https://jira-auto-scheduler.bitovi-jira.com/"
-           class="${linkStyle}">Statistical AutoScheduler</a>
-        and <a href="https://timeline-report.bitovi-jira.com/"
-          class="hover:text-sky-700 underline text-blue-500">Timeline Report</a> tools,
-          and our <a class="${linkStyle}" href="https://www.bitovi.com/academy/learn-agile-program-management-with-jira.html">Program Management Training</a>
-          that puts it all together.
-      </p>
-
-      <p class='text-base mb-8'>Got questions? Chat with us on
-        <a class="${linkStyle}" href="https://discord.gg/J7ejFsZnJ4">discord</a>.
-      </p>
+      
 
 
-      <details class='border-color-gray-200 border-solid border rounded-lg bg-white'>
-  			<summary class='text-base p-5 bg-gray-100 cursor-pointer'>Configure</summary>
+      <details class='border-color-gray-200 border-solid border rounded-lg bg-white mt-5 group'>
+  			<summary class='text-base p-5 bg-gray-100 cursor-pointer rounded-lg group-open:rounded-b-none'>Configure</summary>
 
   			<div class="grid gap-3 p-3 configure-estimation">
   				<label class="font-bold">Estimate Unit:</label>
@@ -159,7 +160,7 @@ export class StatisticalEstimator extends StacheElement {
 
   				{{# or( eq(this.estimateUnit, "story points"), eq(this.outputUnit, "story points") ) }}
 
-  					<label for="sprintWorkingDays"  class="font-bold">Sprint length in working days:</label>
+  					<label for="sprintWorkingDays"  class="font-bold">Sprint length:</label>
 
   					<div><input id="sprintWorkingDays"
   					type="number" valueAsNumber:bind="this.sprintWorkingDays" class="${formInput} w-16" /></div>
@@ -167,11 +168,11 @@ export class StatisticalEstimator extends StacheElement {
   					<p  class='help-text'>Specify how many working days are in your team's sprints. For example, if you have
   					a two week sprint, you should enter 10.</p>
 
-  					<label for="velocity"  class="font-bold">Sprint velocity in story points:</label>
+  					<label for="velocity"  class="font-bold">Sprint velocity:</label>
   					<div><input id="velocity"
   						type="number" valueAsNumber:bind="this.velocity" class="${formInput} w-16" /></div>
 
-  					<p class='help-text'>Specify how many sprints your team completes a sprint.</p>
+  					<p class='help-text'>Specify how many story points your team completes a sprint.</p>
 
   				{{/ or }}
 
@@ -217,7 +218,27 @@ export class StatisticalEstimator extends StacheElement {
 
   		</details>
 
-
+		<p class='text-base mt-5 mb-2  text-white'>This tool provides more accurate software estimates.
+		  For the theory behind it, read
+		  <a class="${linkStyle}" href="https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html">Why software projects take longer than you think: a statistical model</a>.
+		  A big shout out to
+		  <a href="https://www.linkedin.com/in/jeremiah-sheehy-ba865a18b/"  class="${linkStyle}">Jeremiah Sheehy</a> who built the first version of this tool and donated
+		  it to us so we could improve it. Find a copy of the source at
+		  <a href="https://github.com/bitovi/statistical-software-estimator"  class="${linkStyle}">Github</a>.
+		</p>
+  
+		<p class='text-base mb-2 text-white'>If you like this tool, checkout Bitovi's
+		  <a href="https://jira-auto-scheduler.bitovi-jira.com/"
+			 class="${linkStyle}">Statistical AutoScheduler</a>
+		  and <a href="https://timeline-report.bitovi-jira.com/"
+			class="hover:text-sky-700 underline text-blue-500">Timeline Report</a> tools,
+			and our <a class="${linkStyle}" href="https://www.bitovi.com/academy/learn-agile-program-management-with-jira.html">Program Management Training</a>
+			that puts it all together.
+		</p>
+  
+		<p class='text-base mb-8 text-white'>Got questions? Chat with us on
+		  <a class="${linkStyle}" href="https://discord.gg/J7ejFsZnJ4">discord</a>.
+		</p>
 
     </div>
 

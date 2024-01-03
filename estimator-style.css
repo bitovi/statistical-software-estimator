@@ -13,10 +13,46 @@
   display: inline-block;
 }
 
+.bitovi-dots {
+    background-color: #002A2D;
+    background-image:
+    
+            radial-gradient(circle 1px at 10px 10px, #005156 1px, transparent 1.1px),
+    radial-gradient(circle 3px at 170px 110px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 490px 130px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 970px 1010px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 370px 810px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 1070px 10px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 1090px 570px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 970px 810px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 170px 390px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 830px 430px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 710px 210px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 730px 170px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 90px 390px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 430px 1090px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 790px 1170px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 350px 430px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 150px 770px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 1150px 310px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 370px 30px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 470px 1190px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 470px 390px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 550px 50px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 850px 330px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 190px 890px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 350px 510px, #005156 3px, transparent 3.1px),
+    radial-gradient(circle 3px at 30px 370px, #005156 3px, transparent 3.1px);
+    background-size: 20px 20px, 1200px 1200px;
+    background-position: -10px -10px;
+}
+
+
+
 /** Graph Styles */
 
 .focus line {
-    stroke: #E4002B;
+    stroke: #F5532D;
     /*fill: none;*/
     stroke-width: 3;
 }
