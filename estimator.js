@@ -102,7 +102,7 @@ export class StatisticalEstimator extends StacheElement {
 			{{# if(this.startDate) }}
 				<h5>due {{this.prettyEndDateOfMeanEstimate}}</h5>
 			{{/ if }}
-			<p>on average</p>
+			<p>average</p>
 		</div>
 
 		<div class="bg-teal-400 rounded text-center p-1 drop-shadow grow shrink">
