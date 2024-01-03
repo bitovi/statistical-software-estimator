@@ -138,8 +138,6 @@ export class StatisticalEstimator extends StacheElement {
     </div>
     <!-- RIGHT SIDE -->
     <div class='shrink xl:max-w-[520px]'>
-      
-
 
       <details class='border-color-gray-200 border-solid border rounded-lg bg-white mt-5 group'>
   			<summary class='text-base p-5 bg-gray-100 cursor-pointer rounded-lg group-open:rounded-b-none'>Configure</summary>
@@ -228,7 +226,7 @@ export class StatisticalEstimator extends StacheElement {
 		</p>
   
 		<p class='text-base mb-2 text-white'>If you like this tool, checkout Bitovi's
-		  <a href="https://jira-auto-scheduler.bitovi-jira.com/"
+		  <a href="https://auto-scheduler.bitovi-jira.com/"
 			 class="${linkStyle}">Statistical AutoScheduler</a>
 		  and <a href="https://timeline-report.bitovi-jira.com/"
 			class="hover:text-sky-700 underline text-blue-500">Timeline Report</a> tools,
