@@ -32,7 +32,7 @@ function makeAreaUnderTheGraph({svg}){
 
 			.attr("clip-path", "url(#chart-area)")
 			.attr("class", "area")
-			.attr("fill", "steelblue")
+			.attr("fill", "#B3B3B3")
 
 }
 function updateAreaUnderTheGraph({areaUnderGraph, area, dataset}) {
@@ -128,10 +128,12 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 		let svg = d3.select("#chartdiv");
 		svg.selectAll("*").remove();
 
-
-		const baseWidth = document.getElementById("chartdiv").parentElement.clientWidth;
+		const parentElement = document.getElementById("chartdiv").parentElement;
+		const baseWidth = parentElement.clientWidth,
+			baseHeight = document.getElementById("chartdiv").clientHeight;
+		
 		var width = baseWidth - margin.left - margin.right,
-				height = 480 - margin.top - margin.bottom;
+				height = baseHeight - margin.top - margin.bottom;
 
 
 		svg = d3.select("#chartdiv").append("svg")

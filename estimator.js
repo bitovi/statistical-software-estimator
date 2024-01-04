@@ -96,39 +96,39 @@ export class StatisticalEstimator extends StacheElement {
       {{/ eq }}
 	
 	  <div class="flex gap-2 place-content-between mb-5">
-	  	<div class="bg-yellow-400 rounded text-center p-1 drop-shadow grow shrink">
+	  	<div class="bg-white rounded text-center p-1 drop-shadow grow shrink">
 			
-			<h4 class="font-bold text-lg">{{this.prettyAdjustedMean}}</h4>
+			<h4 class="sm:text-2xl text-base text-orange-400 whitespace-nowrap">{{this.prettyAdjustedMean}}</h4>
 			{{# if(this.startDate) }}
-				<h5>due {{this.prettyEndDateOfMeanEstimate}}</h5>
+				<h5 class="text-sm text-orange-400">due {{this.prettyEndDateOfMeanEstimate}}</h5>
 			{{/ if }}
-			<p>average</p>
+			<p class="text-sm text-orange-400">average</p>
 		</div>
 
-		<div class="bg-teal-400 rounded text-center p-1 drop-shadow grow shrink">
-			<h4 class="font-bold text-lg">{{this.prettyAdjustedEstimate70}}</h4>
+		<div class="bg-white rounded text-center p-1 drop-shadow grow shrink">
+			<h4 class="sm:text-2xl text-base">{{this.prettyAdjustedEstimate70}}</h4>
 			{{# if(this.startDate) }}
-				<h5>due {{this.prettyEndDateOfAdjustedEstimate70}}</h5>
+				<h5 class="text-sm">due {{this.prettyEndDateOfAdjustedEstimate70}}</h5>
 			{{/ if }}
-			<p>70% likelihood</p>
+			<p class="text-sm">70% likelihood</p>
 
 
 		</div>
 
-		<div class="bg-green-400 rounded text-center p-1 drop-shadow grow shrink">
-			<h4 class="font-bold text-lg">{{this.prettyAdjustedEstimate80}}</h4>
+		<div class="bg-white rounded text-center p-1 drop-shadow grow shrink">
+			<h4 class="sm:text-2xl text-base">{{this.prettyAdjustedEstimate80}}</h4>
 			{{# if(this.startDate) }}
-				<h5>due {{this.prettyEndDateOfAdjustedEstimate80}}</h5>
+				<h5 class="text-sm">due {{this.prettyEndDateOfAdjustedEstimate80}}</h5>
 			{{/ if }}
-			<p>80% likelihood</p>
+			<p class="text-sm">80% likelihood</p>
 		</div>
 
-		<div class="bg-green-200 rounded text-center p-1 drop-shadow grow shrink">
-			<h4 class="font-bold text-lg">{{this.prettyAdjustedEstimate90}}</h4>
+		<div class="bg-white rounded text-center p-1 drop-shadow grow shrink">
+			<h4 class="sm:text-2xl text-base">{{this.prettyAdjustedEstimate90}}</h4>
 			{{# if(this.startDate) }}
-				<h5>due {{this.prettyEndDateOfAdjustedEstimate90}}</h5>
+				<h5 class="text-sm">due {{this.prettyEndDateOfAdjustedEstimate90}}</h5>
 			{{/ if }}
-			<p>90% likelihood</p>	
+			<p class="text-sm">90% likelihood</p>	
 		</div>
 	  </div>
 
@@ -216,8 +216,15 @@ export class StatisticalEstimator extends StacheElement {
 
   		</details>
 
-		<p class='text-base mt-5 mb-2  text-white'>This tool provides more accurate software estimates.
-		  For the theory behind it, read
+		<p class='text-base mt-5 mb-2 text-white'>This tool provides more accurate software estimates. We suggest using the 80% or 90% 
+		  likelihood values for planning. For more information on how to use this tool, read
+		  <a class="${linkStyle}" href="https://www.bitovi.com/academy/learn-agile-program-management-with-jira/estimating.html">Agile Program Management - Estimating</a>.  
+		</p>
+
+		<p class='text-base mb-2 text-white'>If you are using Jira, the  <a href="https://auto-scheduler.bitovi-jira.com/"
+		class="${linkStyle}">Statistical AutoScheduler</a> can update your adjust your epic story points and timing automatically.</p>
+		<p class='text-base mb-2 text-white'>
+		  For the theory behind the tool, read
 		  <a class="${linkStyle}" href="https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html">Why software projects take longer than you think: a statistical model</a>.
 		  A big shout out to
 		  <a href="https://www.linkedin.com/in/jeremiah-sheehy-ba865a18b/"  class="${linkStyle}">Jeremiah Sheehy</a> who built the first version of this tool and donated
@@ -226,12 +233,9 @@ export class StatisticalEstimator extends StacheElement {
 		</p>
   
 		<p class='text-base mb-2 text-white'>If you like this tool, checkout Bitovi's
-		  <a href="https://auto-scheduler.bitovi-jira.com/"
-			 class="${linkStyle}">Statistical AutoScheduler</a>
-		  and <a href="https://timeline-report.bitovi-jira.com/"
-			class="hover:text-sky-700 underline text-blue-500">Timeline Report</a> tools,
-			and our <a class="${linkStyle}" href="https://www.bitovi.com/academy/learn-agile-program-management-with-jira.html">Program Management Training</a>
-			that puts it all together.
+		 
+		   <a href="https://timeline-report.bitovi-jira.com/"
+			class="hover:text-sky-700 underline text-blue-500">Timeline Report</a> tool.
 		</p>
   
 		<p class='text-base mb-8 text-white'>Got questions? Chat with us on

@@ -52,7 +52,7 @@
 /** Graph Styles */
 
 .focus line {
-    stroke: #F5532D;
+    stroke: #B3B3B3;
     /*fill: none;*/
     stroke-width: 3;
 }
@@ -63,14 +63,14 @@
 }
 
 .mean line {
-    stroke: gray;
+    stroke: #F5532D;
     /*fill: none;*/
     stroke-width: 3;
 }
 
 .mean circle {
-	fill: none;
-	stroke: gray;
+	fill: #F5532D;
+	stroke: #F5532D;
 }
 
 
@@ -86,8 +86,9 @@
     font-family: 'Roboto Slab', serif;
 }
 .dot {
-    stroke: #293b47;
-    fill: #7A99AC
+    stroke: #005156;
+    fill: #007A82;
+
 }
 .overlay {
 	fill: none;
@@ -101,7 +102,7 @@
 }
 
 #chartdiv {
-	height: 480px;
+	height: 460px;
 }
 
 
