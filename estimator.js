@@ -4,7 +4,7 @@ import {saveJSONToUrl} from "./shared/state-storage.js";
 import {getEndDateFromUTCStartDateAndBusinessDays} from "./shared/dateUtils.js";
 
 const formInput = "shadow border rounded py-1 px-1 text-gray-700  focus:outline-none focus:shadow-outline"
-const linkStyle = "hover:text-sky-700 underline text-blue-500";
+const linkStyle = "hover:text-sky-500 underline text-blue-400";
 const _10_confidence = 1.28; //σ
 const _100_confidence = 0; // σ
 
@@ -222,7 +222,7 @@ export class StatisticalEstimator extends StacheElement {
 		</p>
 
 		<p class='text-base mb-2 text-white'>If you are using Jira, the  <a href="https://auto-scheduler.bitovi-jira.com/"
-		class="${linkStyle}">Statistical AutoScheduler</a> can update your adjust your epic story points and timing automatically.</p>
+		class="${linkStyle}">Statistical AutoScheduler</a> can adjust epic story points and timing automatically.</p>
 		<p class='text-base mb-2 text-white'>
 		  For the theory behind the tool, read
 		  <a class="${linkStyle}" href="https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html">Why software projects take longer than you think: a statistical model</a>.
@@ -235,7 +235,7 @@ export class StatisticalEstimator extends StacheElement {
 		<p class='text-base mb-2 text-white'>If you like this tool, checkout Bitovi's
 		 
 		   <a href="https://timeline-report.bitovi-jira.com/"
-			class="hover:text-sky-700 underline text-blue-500">Timeline Report</a> tool.
+		   class="${linkStyle}">Timeline Report</a> tool.
 		</p>
   
 		<p class='text-base mb-8 text-white'>Got questions? Chat with us on
