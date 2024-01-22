@@ -134,7 +134,12 @@ export class StatisticalEstimator extends StacheElement {
 
       
 
-      <div id="chartdiv" style="touch-action: none" class='bg-white rounded-lg drop-shadow-md'></div>
+      <div id="chartdiv" style="touch-action: none" class='bg-white rounded-t-lg drop-shadow-md'></div>
+	  <div class="flex bg-white gap-3">
+	  	<span class="p-2">Graph Type:</span>
+	  	<button class="bg-white {{#eq(this.graphType, 'cdf')}}underline{{/}}" on:click="this.graphType = 'cdf'">Cumulative Distribution Function</button>
+		<button class="bg-white {{#eq(this.graphType, 'pdf')}}underline{{/}}" on:click="this.graphType = 'pdf'">Probability Density Function</button>
+	  </div>
     </div>
     <!-- RIGHT SIDE -->
     <div class='shrink xl:max-w-[520px]'>
@@ -253,6 +258,7 @@ export class StatisticalEstimator extends StacheElement {
 		estimateUnit: saveJSONToUrl("estimateUnit", "days", String, stringParse),
 		spreadUnit: saveJSONToUrl("spreadUnit", "confidence", String, stringParse),
 		outputUnit: saveJSONToUrl("outputUnit", "days", String, stringParse),
+		graphType: saveJSONToUrl("graphType", "cdf", String, stringParse),
 		velocity: saveJSONToUrl("velocity", 20, type.convert(Number), numberParse),
 		sprintWorkingDays: saveJSONToUrl("sprintWorkingDays", 10, type.convert(Number), numberParse),
 		startDate: saveJSONToUrl("startDate", null, type.maybeConvert(Date), dateParse),
@@ -341,7 +347,8 @@ export class StatisticalEstimator extends StacheElement {
 			return {
 				std: this.standardDeviations,
 				estimate: this.estimateInOutput,
-				outputUnit: this.outputUnit
+				outputUnit: this.outputUnit,
+				graphType: this.graphType
 			}
 		}
 	};

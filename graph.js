@@ -9,7 +9,7 @@ var EstimateCertanityDays = 0;
 var Weeks = 0;
 
 
-function create_data(interval, upper_bound, lower_bound, mean, std) {
+function create_data(interval, upper_bound, lower_bound, mean, std, getY = jStat.lognormal.cdf) {
 		var n = Math.ceil((upper_bound - lower_bound) / interval)
 		var data = [];
 
@@ -17,7 +17,7 @@ function create_data(interval, upper_bound, lower_bound, mean, std) {
 
 		for (let i = 0; i < n; i++) {
 				data.push({
-						"y": jStat.lognormal.cdf( x_position, mean, std ),
+						"y": getY( x_position, mean, std ),
 						// "y": jStat.normal.pdf(x_position, mean, std),
 						"x": x_position
 				})
@@ -87,7 +87,7 @@ function getClosestDataPointToEvent({element, dataset, xScale}){
 	return getClosestDataPointToX({x, dataset, xScale});
 }
 
-export default function({mean = 0, std = 1, estimate, outputUnit}){
+export default function({mean = 0, std = 1, estimate, outputUnit, graphType = "cdf"}){
 
 		const capitalizedOutputUnit = outputUnit[0].toUpperCase()+
 			outputUnit.substr(1);
@@ -142,7 +142,7 @@ export default function({mean = 0, std = 1, estimate, outputUnit}){
 				.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-		var dataset = create_data(interval, upper_bound, lower_bound, mean, std);
+		var dataset = create_data(interval, upper_bound, lower_bound, mean, std, jStat.lognormal[graphType]);
 
 		////// Define Scales /////////////////
 		var xScale = d3.scaleLinear()
