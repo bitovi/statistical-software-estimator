@@ -159,7 +159,10 @@ export default function({mean = 0, std = 1, estimate, outputUnit, graphType = "c
 								return (d.y);
 						}),
 						d3.max(dataset, function(d) {
-								return 1;
+								
+								return graphType === "cdf" ? 
+									1 :  // CDF should always be at 1
+									(d.y * 1.1); // Add a little top space for PDF
 						})
 				])
 				.range([height, 0]);
@@ -188,7 +191,7 @@ export default function({mean = 0, std = 1, estimate, outputUnit, graphType = "c
 		var yAxis = d3.axisLeft()
 				.scale(yScale)
 				.ticks(8).tickFormat(function(d, i) {
-						return Math.round(d*100)
+						return graphType === "cdf" ? Math.round(d*100) : d;
 				});
 
 
@@ -306,7 +309,7 @@ export default function({mean = 0, std = 1, estimate, outputUnit, graphType = "c
 				.attr("x", -150)
 				.attr("dy", "0.71em")
 				.attr("fill", "#000")
-				.text("Likelihood of completion");;
+				.text(graphType === "cdf" ? "Likelihood of completion" : "Probability density");;
 
 
 		function mousemove(ev) {
